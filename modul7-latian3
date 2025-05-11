@@ -1,0 +1,77 @@
+class Node {
+  int data;
+  Node? next;
+
+  Node(this.data);
+}
+
+class LinkedList {
+  Node? head;
+
+  LinkedList() {
+    head = null;
+  }
+
+  //fungsi untuk menambahkan node baru ke akhir linked list
+  void append(int newData) {
+    Node newNode = Node(newData);
+    if (head == null) {
+      head = newNode;
+      return;
+    }
+    Node? last = head;
+    while (last?.next != null) {
+      last = last!.next;
+    }
+    last?.next = newNode;
+  }
+  
+  //fungsi untuk melakukan pembaca node berdasarkan data
+  Node? findNode(int data) {
+    Node? current = head;
+    while (current != null) {
+      if (current.data == data) {
+        return current; //node dengan data yang dicari di temukan
+      }
+      current = current.next; //pindahkan ke node berikutnya
+    }
+    return null; //node dengan data yang dicari tidak ditemukan
+  }
+
+  //metode bantu untuk mencetak isi linked list
+  void printList() {
+    Node? current = head;
+    while (current != null) {
+      print('${current.data}');
+      current = current.next;
+    }
+    print('null');
+  }
+}
+
+void main() {
+  LinkedList myList = LinkedList();
+  myList.append(15);
+  myList.append(25);
+  myList.append(35);
+  myList.append(45);
+
+  print('Linked List:');
+  myList.printList();
+
+  //mencari node dengan data 35
+  Node? foundNode = myList.findNode(35);
+  if (foundNode != null) {
+    print('Node dengan data ${foundNode.data} ditemukan.');
+  } else {
+    print('Node dengan data 35 tidak ditemukan.');
+  }
+
+  //mencari node dengan data 65
+  Node? notFoundNode = myList.findNode(65);
+  if (notFoundNode != null) {
+    print('Node dengan data ${notFoundNode.data} ditemukan.');
+  } else {
+    print('Node dengan data 65 tidak ditemukan.');
+  }
+}
