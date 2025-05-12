@@ -1,0 +1,61 @@
+class Node {
+  int data;
+  Node? prev;
+  Node? next;
+
+  Node(this.data);
+}
+
+class DoubleLinkedList {
+  Node? head;
+
+  void tampilkanDariDepan() {
+  Node? current = head;
+  while (current != null) {
+    print(current.data);
+    current = current.next;
+  }
+}
+
+  void tambahDiDepan(int data) {
+    Node newNode = Node(data);
+    newNode.next = head;
+
+    if (head != null) {
+      head!.prev = newNode;
+    }
+
+    head = newNode;
+  }
+}
+
+extension on DoubleLinkedList {
+  void hapusDiDepan() {
+    if (head == null) {
+      print("List kosong, tidak bisa menghapus.");
+      return;
+    }
+
+    head = head!.next;
+
+    if (head != null) {
+      head!.prev = null;
+    }
+  }
+}
+
+void main() {
+  DoubleLinkedList dll = DoubleLinkedList();
+
+  dll.tambahDiDepan(30);
+  dll.tambahDiDepan(20);
+  dll.tambahDiDepan(10);
+
+  print("Isi list setelah penambahan:");
+  dll.tampilkanDariDepan();
+
+  dll.hapusDiDepan(); // akan menghapus 10
+
+  print("Isi list setelah penghapusan di depan:");
+  dll.tampilkanDariDepan();
+}
